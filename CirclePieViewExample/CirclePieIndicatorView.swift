@@ -43,7 +43,7 @@ class CirclePieIndicatorView: UIView {
         view.frame = bounds
         
         // Make the view stretch with containing view
-        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         // Adding custom subview on top of our view (over any custom drawing > see note below)
         addSubview(view)
@@ -51,9 +51,9 @@ class CirclePieIndicatorView: UIView {
     
     func loadViewFromNib() -> UIView {
         
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "CirclePieIndicatorView", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         
         return view
     }
