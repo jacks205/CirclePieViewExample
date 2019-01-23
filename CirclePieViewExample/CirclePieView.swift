@@ -54,26 +54,26 @@ import UIKit
             segmentValues.append(Float(val))
         }
     }
-
+    
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         //Base circle
-        UIColor.blackColor().setFill()
-        let outerPath = UIBezierPath(ovalInRect: rect)
+        UIColor.black.setFill()
+        let outerPath = UIBezierPath(ovalIn: rect)
         outerPath.fill()
-
+        
         
         //Semicircles
         //self.frame isn't defined yet, so we can't use self.center
-        let viewCenter = CGPointMake(rect.width / 2, rect.height / 2);
+        let viewCenter = CGPoint(x: rect.width / 2, y: rect.height / 2)
         var i = 0
         var lastAngle :Float = 0.0
         let baseCircleRadius = rect.width / 2
         let centerCircleRadius = rect.width / 2 * 0.55
-
+        
         //value : current number
         for value in segmentValues {
             //total : total number
@@ -93,31 +93,28 @@ import UIKit
             color.setFill()
             
             let midPath = UIBezierPath()
-            midPath.moveToPoint(viewCenter)
+            midPath.move(to: viewCenter)
             
-            midPath.addArcWithCenter(viewCenter, radius: CGFloat(radius), startAngle: startAngle.degreesToRadians, endAngle: endAngle.degreesToRadians, clockwise: true)
+            midPath.addArc(withCenter: viewCenter, radius: CGFloat(radius), startAngle: startAngle.degreesToRadians, endAngle: endAngle.degreesToRadians, clockwise: true)
             
-            midPath.closePath()
+            midPath.close()
             midPath.fill()
             
             lastAngle = endAngle
-            ++i
+            i += 1
         }
         
         //Center circle
-        UIColor.whiteColor().setFill()
-        let centerPath = UIBezierPath(ovalInRect:
-            CGRectInset(rect,
-                centerCircleRadius,
-                centerCircleRadius))
+        UIColor.white.setFill()
+        let centerPath = UIBezierPath(ovalIn: rect.insetBy(dx: centerCircleRadius, dy: centerCircleRadius))
         centerPath.fill()
         
-        UIColor.grayColor().setStroke()
+        UIColor.gray.setStroke()
         let lineLength = centerCircleRadius * 0.5
         let strokePath = UIBezierPath()
         strokePath.lineWidth = 2
-        strokePath.moveToPoint(CGPointMake(viewCenter.x - lineLength / 2, viewCenter.y))
-        strokePath.addLineToPoint(CGPointMake(viewCenter.x + lineLength / 2, viewCenter.y))
+        strokePath.move(to: CGPoint(x: viewCenter.x - lineLength / 2, y: viewCenter.y))
+        strokePath.addLine(to: CGPoint(x: viewCenter.x + lineLength / 2, y: viewCenter.y))
         strokePath.stroke()
     }
 }
@@ -130,6 +127,6 @@ extension Array {
 
 extension Float {
     var degreesToRadians : CGFloat {
-        return CGFloat(self) * CGFloat(M_PI) / 180.0
+        return CGFloat(self) * CGFloat(Double.pi) / 180.0
     }
 }

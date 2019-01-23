@@ -10,7 +10,7 @@ import UIKit
 
 extension Double {
     func format(f: String) -> String {
-        return NSString(format: "%\(f)f", self) as String
+        return String(format: "%\(f)f", self) as String
     }
 }
 
@@ -33,11 +33,11 @@ class ViewController: UIViewController {
             totalTotals += total
         }
         let percent = (Double(totalValues) / Double(totalTotals)) * 100
-        circlePieIndicatorView.percentageLabel.text = percent.format(".0") + "%"
+        circlePieIndicatorView.percentageLabel.text = percent.format(f: ".0") + "%"
         circlePieIndicatorView.circlePieView.setSegmentValues(
-            values,
+            values: values,
             totals: totals,
-            colors: [UIColor.greenColor(), UIColor.yellowColor(), UIColor.redColor(), UIColor.greenColor(), UIColor.yellowColor(), UIColor.redColor(), UIColor.greenColor(), UIColor.yellowColor(), UIColor.redColor(), UIColor.greenColor(), UIColor.yellowColor(), UIColor.redColor()])
+            colors: [UIColor.green, UIColor.yellow, UIColor.red, UIColor.green, UIColor.yellow, UIColor.red, UIColor.green, UIColor.yellow, UIColor.red, UIColor.green, UIColor.yellow, UIColor.red])
         
     }
 
